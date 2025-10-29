@@ -20,7 +20,7 @@ jobs:
         run: poetry install
       - name: Run tests
         run: poetry run coverage run --branch -m pytest
-      - name: Coverage reportrun: 
+      - name: Coverage reportrun
         run: poetry run coverage xml
       - name: Coverage report to Codecov
         uses: codecov/codecov-action@v5
