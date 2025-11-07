@@ -14,9 +14,9 @@ def main():
     print(f"tilavuus = {olutta.tilavuus}")
     print(f"paljonko_mahtuu = {olutta.paljonko_mahtuu()}")
     print(" ")
-    print("1")
     print(" ")
     print(" ")
+    print("   ")
     print(" ")
 if __name__ == "__main__":
     main()
