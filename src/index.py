@@ -14,7 +14,7 @@ def main():
     print(f"tilavuus = {olutta.tilavuus}")
     print(f"paljonko_mahtuu = {olutta.paljonko_mahtuu()}")
     print(" ")
-    print(" ")
+    print("1")
     print(" ")
     print(" ")
     print(" ")

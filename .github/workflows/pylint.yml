@@ -26,4 +26,5 @@ jobs:
           pip install pylint
 
       - name: Run Pylint
-        run:
+        run: |
+          pylint src
