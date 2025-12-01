@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Warehouse Management - Home{% endblock %}
+
+{% block content %}
+<h1>Warehouse Management</h1>
+
+<div class="container">
+    <h2>Create New Warehouse</h2>
+    <form method="POST" action="{{ url_for('warehouse.create_warehouse') }}">
+        <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description"></textarea>
+        </div>
+        <button type="submit">Create Warehouse</button>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Warehouses</h2>
+    {% if warehouses %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Description</th>
+                <th>Items</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for warehouse in warehouses %}
+            <tr>
+                <td>{{ warehouse.id }}</td>
+                <td>{{ warehouse.name }}</td>
+                <td>{{ warehouse.location or '-' }}</td>
+                <td>{{ warehouse.description or '-' }}</td>
+                <td>{{ warehouse.items|length }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('warehouse.view_warehouse', w_id=warehouse.id) }}" class="btn btn-primary">View</a>
+                    <a href="{{ url_for('warehouse.edit_warehouse', warehouse_id=warehouse.id) }}" class="btn btn-secondary">Edit</a>
+                    <form method="POST" action="{{ url_for('warehouse.delete_warehouse_form', warehouse_id=warehouse.id) }}" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this warehouse?')">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No warehouses yet. Create one above!</p>
+    {% endif %}
+</div>
+{% endblock %}
