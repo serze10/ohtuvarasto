@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}{{ warehouse.name }} - Warehouse Details{% endblock %}
+
+{% block content %}
+<h1>{{ warehouse.name }}</h1>
+
+<div class="container">
+    <h2>Warehouse Details</h2>
+    <p><strong>ID:</strong> {{ warehouse.id }}</p>
+    <p><strong>Location:</strong> {{ warehouse.location or 'Not specified' }}</p>
+    <p><strong>Description:</strong> {{ warehouse.description or 'No description' }}</p>
+
+    <a href="{{ url_for('warehouse.edit_warehouse', warehouse_id=warehouse.id) }}" class="btn btn-secondary">Edit</a>
+    <a href="{{ url_for('warehouse.index') }}" class="btn btn-primary">Back to List</a>
+</div>
+
+<div class="container">
+    <h2>Add New Item</h2>
+    <form method="POST" action="{{ url_for('warehouse.add_item', warehouse_id=warehouse.id) }}">
+        <div class="form-group">
+            <label for="item_name">Item Name *</label>
+            <input type="text" id="item_name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" step="0.01" value="0" min="0">
+        </div>
+        <button type="submit" class="btn btn-success">Add Item</button>
+    </form>
+</div>
+
+<div class="container">
+    <h2>Items ({{ warehouse.items|length }})</h2>
+    {% if warehouse.items %}
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in warehouse.items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td class="actions">
+                    <form method="POST" action="{{ url_for('warehouse.remove_item_form', warehouse_id=warehouse.id, item_id=item.id) }}" style="display: inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to remove this item?')">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No items in this warehouse. Add some above!</p>
+    {% endif %}
+</div>
+{% endblock %}

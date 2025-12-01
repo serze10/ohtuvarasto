@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Warehouse - {{ warehouse.name }}{% endblock %}
+
+{% block content %}
+<h1>Edit Warehouse</h1>
+
+<div class="container">
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Name *</label>
+            <input type="text" id="name" name="name" value="{{ warehouse.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" value="{{ warehouse.location or '' }}">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description">{{ warehouse.description or '' }}</textarea>
+        </div>
+        <button type="submit">Update Warehouse</button>
+        <a href="{{ url_for('warehouse.index') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
